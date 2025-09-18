@@ -17,7 +17,7 @@ for cluster in dev-cluster prod-cluster; do
   vpc_id=$(aws ec2 describe-subnets --subnet-ids ${subnets[0]} --query "Subnets[0].VpcId" --output text)
   vpc_name=$(aws ec2 describe-tags --filters "Name=resource-id,Values=$vpc_id" "Name=key,Values=Name" --query "Tags[0].Value" --output text)
   public=false
-  for s in "${subnets[@]}"; do
+  for s in "${subnets[@]}"; do 
     mp=$(aws ec2 describe-subnets --subnet-ids $s --query "Subnets[0].MapPublicIpOnLaunch" --output text)
     [[ "$mp" == "True" ]] && public=true && break
   done
